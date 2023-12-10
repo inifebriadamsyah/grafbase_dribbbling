@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
         },
         secret
       );
-      
+
       return encodedToken;
     },
     decode: async ({ secret, token }) => {
@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session }) {
       const email = session?.user?.email as string;
 
-      try { 
+      try {
         const data = await getUser(email) as { user?: UserProfile }
 
         const newSession = {
@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
     }) {
       try {
         const userExists = await getUser(user?.email as string) as { user?: UserProfile }
-        
+
         if (!userExists.user) {
           await createUser(user.name as string, user.email as string, user.image as string)
         }
